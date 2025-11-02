@@ -1,10 +1,10 @@
-﻿variables:
+variables:
   RELEASE_NAME: "CantedAiming"
   AUTHOR: "bushtail"
   DLL_NAME: "CantedAiming.dll"
   OUTPUT_DIR: "SPT/user/mods"
   VERSION: "1.0.0"
-
+# Stop complaining gitlab
 stages:
   - build
   - package
