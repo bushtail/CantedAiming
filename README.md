@@ -1,3 +1,3 @@
-[https://i.imgur.com/kMdBKkb.png]
+# Canted Aiming
 
-thanks bud
+Thanks to Pluto for both the bundle and giving me permission to use it in 4.0!
