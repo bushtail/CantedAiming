@@ -20,9 +20,7 @@ build:
     - DLL_PATH=$(find ${RELEASE_NAME}/bin/Release -type f -name "$DLL_NAME" | head -n1)
     - echo "${DLL_PATH}"
     - mkdir -p build_output/${OUTPUT_DIR}/${AUTHOR}-${RELEASE_NAME}
-    # Copy DLL
     - cp "$DLL_PATH" build_output/${OUTPUT_DIR}/${AUTHOR}-${RELEASE_NAME}/
-    # Copy bundles folder and bundles.json if they exist
     - if [ -d "${RELEASE_NAME}/bundles" ]; then cp -r "${RELEASE_NAME}/bundles" build_output/${OUTPUT_DIR}/${AUTHOR}-${RELEASE_NAME}/; fi
     - if [ -f "${RELEASE_NAME}/bundles.json" ]; then cp "${RELEASE_NAME}/bundles.json" build_output/${OUTPUT_DIR}/${AUTHOR}-${RELEASE_NAME}/; fi
   artifacts:
