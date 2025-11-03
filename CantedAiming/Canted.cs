@@ -50,7 +50,8 @@ public record Canted(HashSet<MongoId> filter) : NewItemFromCloneDetails
         ],
         ConflictingItems = [ ItemTpl.MOUNT_NCSTAR_MPR45_BACKUP, _itemTpl ],
         EffectiveDistance = 0,
-        Ergonomics = 1,
+        Ergonomics = 2,
+        Weight = 0.0
     };
     
     public override Dictionary<string, LocaleDetails>? Locales { get; set; } = new()
