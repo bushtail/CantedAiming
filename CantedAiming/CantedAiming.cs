@@ -27,8 +27,23 @@ public class CantedAiming(CustomItemService customItemService, DatabaseServer da
             }
         }
         if (filters == null) return Task.CompletedTask;
+        filters.Add(ItemTpl.RECEIVER_M4A1_556X45_UPPER);
         var canted = new Canted(filters);
         customItemService.CreateItemFromClone(canted);
+        if (itemsDb.TryGetValue(ItemTpl.BARREL_SVT40_762X54R_625MM, out var barrel))
+        {
+            if (barrel.Properties?.Slots != null)
+            {
+                foreach (var slot in barrel.Properties.Slots)
+                {
+                    if (slot.Name != "mod_sight_rear" || slot.Properties?.Filters == null) continue;
+                    foreach (var filter in slot.Properties.Filters)
+                    {
+                        filter.Filter?.Add(new MongoId(canted.NewId));
+                    }
+                }
+            }
+        }
         foreach (var item in itemsDb.Values.Where(item => canted.NewId == null || item.Id != canted.NewId))
         {
             if (item.Properties == null) continue;
