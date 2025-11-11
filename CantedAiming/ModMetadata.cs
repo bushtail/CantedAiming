@@ -12,7 +12,7 @@ public record ModMetadata : AbstractModMetadata
     public override string Name { get; init; } = "CantedAiming";
     public override string Author { get; init; } = "bushtail";
     public override List<string>? Contributors { get; init; }
-    public override Version Version { get; init; } = new("1.0.3");
+    public override Version Version { get; init; } = new("1.0.4");
     public override Range SptVersion { get; init; } = new("~4.0.0");
     public override List<string>? Incompatibilities { get; init; }
     public override Dictionary<string, Range>? ModDependencies { get; init; }
