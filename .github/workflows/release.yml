@@ -67,8 +67,8 @@ jobs:
           BUNDLES_JSON=$(find . -type f -name bundles.json | head -n 1)
           if [ -n "$BUNDLES_DIR" ] && [ -n "$BUNDLES_JSON" ]; then
             echo "Found both bundles/ and bundles.json — including them in package"
-            rsync -av "$BUNDLES_DIR" "$TARGET/"
-            cp "$BUNDLES_JSON" "$TARGET/"
+            rsync -av "$BUNDLES_DIR" package/
+            cp "$BUNDLES_JSON" package/
           else
             echo "Skipping: bundles/ and bundles.json must both exist"
           fi
