@@ -9,7 +9,7 @@ using SPTarkov.Server.Core.Services.Mod;
 namespace CantedAiming;
 
 [UsedImplicitly]
-[Injectable(TypePriority = OnLoadOrder.PostDBModLoader + 1)]
+[Injectable(TypePriority = OnLoadOrder.PostDBModLoader + 128)]
 public class CantedAiming(CustomItemService customItemService, DatabaseServer databaseServer) : IOnLoad
 {
     private Canted? _canted;
