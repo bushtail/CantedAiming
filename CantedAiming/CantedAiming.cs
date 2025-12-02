@@ -9,10 +9,24 @@ using SPTarkov.Server.Core.Services.Mod;
 namespace CantedAiming;
 
 [UsedImplicitly]
-[Injectable(TypePriority = OnLoadOrder.PostDBModLoader + 128)]
+[Injectable(TypePriority = OnLoadOrder.TraderRegistration - 1)]
 public class CantedAiming(CustomItemService customItemService, DatabaseServer databaseServer) : IOnLoad
 {
     private Canted? _canted;
+
+    private static readonly MongoId[] _rearSightTarget =
+    [
+        // Barrels
+        ItemTpl.BARREL_SVT40_762X54R_625MM,
+        ItemTpl.BARREL_MOSIN_CARBINE_762X54R_514MM,
+        ItemTpl.BARREL_MOSIN_RIFLE_762X54R_730MM_REGULAR,
+        ItemTpl.BARREL_MOSIN_RIFLE_762X54R_SAWEDOFF_200MM,
+        ItemTpl.BARREL_MOSIN_RIFLE_762X54R_SAWEDOFF_220MM_THREADED,
+        // Weapons
+        ItemTpl.MACHINEGUN_DEGTYAREV_RPD_762X39_MACHINE_GUN,
+        ItemTpl.MACHINEGUN_DEGTYAREV_RPDN_762X39_MACHINE_GUN
+    ];
+    
     public Task OnLoad()
     {
         var itemsDb = databaseServer.GetTables().Templates.Items;
@@ -29,15 +43,20 @@ public class CantedAiming(CustomItemService customItemService, DatabaseServer da
             }
         }
         if (filters == null) return Task.CompletedTask;
+        
+        // Add targeted rear sights to the filter
         filters.Add(ItemTpl.IRONSIGHT_SVT40_REAR_SIGHT);
         filters.Add(ItemTpl.IRONSIGHT_RPD_REAR_SIGHT);
+        filters.Add(ItemTpl.IRONSIGHT_MOSIN_RIFLE_REAR_SIGHT);
+        filters.Add(ItemTpl.IRONSIGHT_MOSIN_RIFLE_CARBINE_REAR_SIGHT);
         
         _canted = new Canted(filters);
         customItemService.CreateItemFromClone(_canted);
-        
-        if (itemsDb.TryGetValue(ItemTpl.BARREL_SVT40_762X54R_625MM, out var barrel)) AddToRearSight(barrel);
-        if (itemsDb.TryGetValue(ItemTpl.MACHINEGUN_DEGTYAREV_RPD_762X39_MACHINE_GUN, out var rpd)) AddToRearSight(rpd);
-        if (itemsDb.TryGetValue(ItemTpl.MACHINEGUN_DEGTYAREV_RPDN_762X39_MACHINE_GUN, out var rpdn)) AddToRearSight(rpdn);
+
+        foreach (var tpl in _rearSightTarget)
+        {
+            if (itemsDb.TryGetValue(tpl, out var item)) AddToRearSight(item);
+        }
         
         foreach (var item in itemsDb.Values.Where(item => _canted.NewId == null || item.Id != _canted.NewId))
         {
@@ -53,6 +72,8 @@ public class CantedAiming(CustomItemService customItemService, DatabaseServer da
                 }
             }
         }
+
+        _canted.filter.Remove(_canted.NewId!);
         return Task.CompletedTask;
     }
 
