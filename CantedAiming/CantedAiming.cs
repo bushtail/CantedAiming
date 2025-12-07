@@ -51,6 +51,10 @@ public class CantedAiming(CustomItemService customItemService, DatabaseServer da
         filters.Add(ItemTpl.IRONSIGHT_MOSIN_RIFLE_CARBINE_REAR_SIGHT);
         
         _canted = new Canted(filters);
+        if (itemsDb.TryGetValue(_canted.NewId!, out _))
+        {
+            _canted.NewId = "6934ece761cb9c71680a3468";
+        }
         customItemService.CreateItemFromClone(_canted);
 
         foreach (var tpl in _rearSightTarget)
