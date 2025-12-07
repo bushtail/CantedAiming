@@ -8,7 +8,7 @@ namespace CantedAiming;
 [UsedImplicitly]
 public record ModMetadata : AbstractModMetadata
 {
-    public override string ModGuid { get; init; } = "ca.bushtail.CantedAiming";
+    public override string ModGuid { get; init; } = "ca.bushtail.cantedaiming";
     public override string Name { get; init; } = "CantedAiming";
     public override string Author { get; init; } = "bushtail";
     public override List<string>? Contributors { get; init; }
@@ -16,7 +16,7 @@ public record ModMetadata : AbstractModMetadata
     public override Range SptVersion { get; init; } = new("~4.0.0");
     public override List<string>? Incompatibilities { get; init; } = 
     [
-        "com.crypluto.echoesoftarkovrequisitions"
+        "com.crypluto.echoesoftarkov.requisitions"
     ];
     public override Dictionary<string, Range>? ModDependencies { get; init; }
     public override string? Url { get; init; }
