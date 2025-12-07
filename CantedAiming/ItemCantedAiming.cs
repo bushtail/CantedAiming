@@ -1,13 +1,11 @@
 ﻿using SPTarkov.Server.Core.Models.Common;
-using SPTarkov.Server.Core.Models.Eft.Common;
 using SPTarkov.Server.Core.Models.Eft.Common.Tables;
-using SPTarkov.Server.Core.Models.Enums;
 using SPTarkov.Server.Core.Models.Spt.Mod;
 
 namespace CantedAiming;
 
 // ReSharper disable once NotAccessedPositionalProperty.Global
-public record Canted(HashSet<MongoId> filter) : NewItemFromCloneDetails
+public record ItemCantedAiming(HashSet<MongoId> filter) : NewItemFromCloneDetails
 {
     private const string _itemTpl = "69069986473b8fd5e80545f3";
     
